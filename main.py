@@ -7,17 +7,16 @@ from google.genai import types
 
 app = FastAPI()
 
-# API Key Render environment variable se read hogi
 API_KEY = os.environ.get("GEMINI_API_KEY", "")
 client = genai.Client(api_key=API_KEY)
 
 SYSTEM_INSTRUCTION = """
-You are 'CSU Student Assistant', created and maintained by Harsh and shantanu. 
+You are 'CSU Student Assistant', created and maintained by Harsh. 
 Your intelligence is powered by Google's Gemini Flash technology.
 
 Rules:
 1. Help students with Central Sanskrit University (CSU, sanskrit.nic.in) queries: Admissions, Campuses (Bhopal, Jaipur, Puri, Lucknow, etc.), Courses (Prak-Shastri, Shastri, Acharya, Shiksha Shastri B.Ed, M.Ed), Exams, Results, and Hostels.
-2. If asked 'Who created you?' or 'Who made you?', answer clearly: 'I was created and am maintained by Harsh and Shantanu. My underlying AI is powered by Google's Gemini Flash technology.'
+2. If asked 'Who created you?' or 'Who made you?', answer clearly: 'I was created and am maintained by Harsh. My underlying AI is powered by Google's Gemini Flash technology.'
 3. Respond politely in Hindi, English, Sanskrit, or Hinglish matching the user's input language.
 4. Prioritize official facts from sanskrit.nic.in. If unsure, suggest visiting sanskrit.nic.in.
 """
@@ -32,7 +31,7 @@ def chat_endpoint(req: ChatRequest):
     
     try:
         response = client.models.generate_content(
-            model="model="gemini-3.6-flash"
+            model="gemini-3.6-flash",
             contents=req.message,
             config=types.GenerateContentConfig(
                 system_instruction=SYSTEM_INSTRUCTION,
