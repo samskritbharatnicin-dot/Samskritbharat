@@ -32,7 +32,7 @@ def chat_endpoint(req: ChatRequest):
     
     try:
         response = client.models.generate_content(
-            model="model="gemini-3.6-flash",
+            model="model="gemini-3.6-flash"
             contents=req.message,
             config=types.GenerateContentConfig(
                 system_instruction=SYSTEM_INSTRUCTION,
